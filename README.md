@@ -2,6 +2,7 @@
 A simple typing tester using python, APIs and its keyboard module.
 
 Use shell to execute. 
+$ sudo su # before executing
 
 Sample Output:
 
