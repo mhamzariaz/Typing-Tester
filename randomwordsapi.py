@@ -1,7 +1,7 @@
 import requests
 
 
-def get_word_from_API():
+def get_word_from_api():
 	url = "https://random-words-with-pronunciation.p.rapidapi.com/word"
 
 	headers = {

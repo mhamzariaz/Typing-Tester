@@ -1,5 +1,5 @@
-from time import time
 import keyboard
+from time import time
 
 
 class UserInput:
@@ -14,9 +14,13 @@ class UserInput:
         keyboard.add_hotkey("delete", lambda: self.set_key())
 
         print('\nUser Typed:', end=" ")
-        start = time()
+        start_time = time()
         char = input()
-        end = time()
+        end_time = time()
 
-        total_time = end - start
-        return char, total_time, self.backspaces
+        return {
+            'Input': char,
+            'Backspaces': self.backspaces,
+            'Start Time': start_time,
+            'End Time': end_time
+        }

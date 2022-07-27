@@ -26,4 +26,21 @@ class CalculateScores:
         time_score = self.calculate_time_score(time_taken, no_of_letters)
 
         total_score = (accuracy_score * 0.5) + (time_score * 0.5)
-        return float(total_score), accuracy_score, time_score
+        return {
+            'Total Score': float(total_score),
+            'Accuracy Score': accuracy_score,
+            'Time Score': time_score
+        }
+
+    @staticmethod
+    def compare_words(original_word, input_word):
+        error = 0
+        for i in range(len(original_word)):
+            if original_word[i] != input_word[i]:
+                error = error + 1
+        return error
+
+    @staticmethod
+    def calculate_total_time_taken(start_time, end_time):
+        return end_time - start_time
+

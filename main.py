@@ -1,43 +1,42 @@
-from randomwordsapi import get_word_from_API
+from randomwordsapi import get_word_from_api
 from scorecalculator import CalculateScores
 from userinput import UserInput
 
 
-def compare_words(original_word, input_word):
-    error = 0
-    for i in range(len(original_word)):
-        if original_word[i] != input_word[i]:
-            error = error + 1
-    return error
+def print_results(user_accuracy, user_time, total_score, word_definition, word_pronunciation):
+
+    print('\nAccuracy score: ', user_accuracy)
+    print('Time Score: ', user_time)
+    print('\nTotal Score: ', total_score)
+    print('\nDefinition: ', word_definition)
+    print('Pronunciation: ', word_pronunciation)
+    print('\n')
 
 
 if __name__ == "__main__":
-    word_dict = get_word_from_API()
+
+    word_dict = get_word_from_api()
     random_word = word_dict['word']
     print('Word:', random_word)
     print('No of letters: ', len(random_word))
 
     user_input = UserInput()
+    calculations = CalculateScores()
 
     input_user = user_input.get_user_input()
 
-    input_word = input_user[0]
-    total_time_taken = input_user[1]
-    back_spaces = input_user[2]
+    input_word = input_user['Input']
+    back_spaces = input_user['Backspaces']
+    total_time_taken = calculations.calculate_total_time_taken(input_user['Start Time'], input_user['End Time'])
 
     print('Time taken by the User: ', total_time_taken)
 
-    calculations = CalculateScores()
     results = calculations.calculate_total_score(len(random_word), back_spaces,
-                                                 compare_words(random_word, input_word),
+                                                 calculations.compare_words(random_word, input_word),
                                                  total_time_taken)
 
-    accuracy = results[1]
-    time = results[2]
-    total = results[0]
+    time = results['Time Score']
+    accuracy = results['Accuracy Score']
+    total_score = results['Total Score']
 
-    print('\nAccuracy score: ', accuracy)
-    print('Time Score: ', time)
-    print('\nTotal Score: ', total)
-    print('\nDefinition: ', word_dict['definition'])
-    print('Pronunciation: ', word_dict['pronunciation'])
+    print_results(accuracy, time, total_score, word_dict['definition'], word_dict['pronunciation'])
